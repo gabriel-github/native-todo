@@ -13,6 +13,7 @@ import Icon from "react-native-vector-icons/Feather";
 import { ItemWrapper } from "./ItemWrapper";
 
 import trashIcon from "../assets/icons/trash/trash.png";
+import { TaskItem } from "./TaskItem";
 
 export interface Task {
   id: number;
@@ -20,16 +21,23 @@ export interface Task {
   done: boolean;
 }
 
+interface EditTaskArguments {
+  taskId: number;
+  taskNewTitle: string;
+}
+
 interface TasksListProps {
   tasks: Task[];
   toggleTaskDone: (id: number) => void;
   removeTask: (id: number) => void;
+  editTask: ({ taskId, taskNewTitle }: EditTaskArguments) => void;
 }
 
 export function TasksList({
   tasks,
   toggleTaskDone,
   removeTask,
+  editTask,
 }: TasksListProps) {
   return (
     <FlatList
@@ -78,6 +86,9 @@ export function TasksList({
 }
 
 const styles = StyleSheet.create({
+  iconsContainer: {
+    display: "flex",
+  },
   taskButton: {
     flex: 1,
     paddingHorizontal: 24,
@@ -114,5 +125,10 @@ const styles = StyleSheet.create({
     color: "#1DB863",
     textDecorationLine: "line-through",
     fontFamily: "Inter-Medium",
+  },
+  iconsDivider: {
+    width: 1,
+    height: 24,
+    color: "rgba(196, 196, 196, 0.24)",
   },
 });
